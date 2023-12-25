@@ -1,0 +1,16 @@
+all: test test-inst calltraceviz
+
+test: test.c
+	gcc -Wall test.c -o test
+
+test-inst: test.c inst.o
+	gcc -finstrument-functions -Wall test.c inst.c -o test-inst
+
+inst.o: inst.c
+	gcc -c -Wall inst.c -o inst.o
+
+calltraceviz: calltraceviz.c
+	gcc -Wall calltraceviz.c -o calltraceviz
+
+clean:
+	rm -f test test-inst inst.o calltraceviz
